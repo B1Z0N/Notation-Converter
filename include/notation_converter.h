@@ -24,8 +24,8 @@ class NotationConverter {
     if (notation_ == notation) {
       return expr_;
     } 
+    return expr_;
 
-    return "";
   };
 private:
   std::string expr_;

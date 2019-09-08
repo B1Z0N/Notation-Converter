@@ -8,52 +8,41 @@ TEST(NotationConverter, Intitialization) {
   NotationConverter nt{"1", ArithmeticNotation::PREFIX};
 }
 
-class NotationConverterInit : public testing::Test {
- public:
+TEST(NotationConverter, PostInitialization) {
   NotationConverter nt;
-  std::string converted;
-};
-
-TEST_F(NotationConverterInit, PostInitialization) {
   nt.insert("1", ArithmeticNotation::PREFIX);
 }
 
+class NotationConverterInit : public testing::Test {
+  NotationConverter nt {};
+
+ public:
+
+  bool from_x_to_y_notation(ArithmeticNotation from, ArithmeticNotation to,
+                            std::string start_expr, std::string end_expr) {
+    nt.insert(start_expr, from);
+    return nt.convert(to) == end_expr;
+  }
+};
+
 TEST_F(NotationConverterInit, OneNumberFromXNotationToXNotation) {
-  nt.insert("1", ArithmeticNotation::PREFIX);
-  converted = nt.convert(ArithmeticNotation::PREFIX);
-  EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
+  auto from_x_to_x_notation{
+      [this](ArithmeticNotation notation, std::string expr) {
+        return from_x_to_y_notation(notation, notation, expr, expr);
+      }};
 
-  nt.insert("22", ArithmeticNotation::INFIX);
-  converted = nt.convert(ArithmeticNotation::INFIX);
-  EXPECT_THAT(converted, testing::Eq(std::string{"22"}));
-
-  nt.insert("945", ArithmeticNotation::POSTFIX);
-  converted = nt.convert(ArithmeticNotation::POSTFIX);
-  EXPECT_THAT(converted, testing::Eq(std::string{"945"}));
+  EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::PREFIX, "1"));
+  EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::INFIX, "12"));
+  EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::POSTFIX, "945"));
 }
 
 TEST_F(NotationConverterInit, OneNumberFromXNotationToYNotation) {
-  NotationConverter nt{"1", ArithmeticNotation::PREFIX};
-  converted = nt.convert(ArithmeticNotation::INFIX);
-  EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
+  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::INFIX, "1", "1"));
+  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::POSTFIX, "12", "12"));
 
-  //   NotationConverter nt{"1", ArithmeticNotation::PREFIX};
-  //   converted = nt.convert(ArithmeticNotation::POSTFIX);
-  //   EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
+  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::PREFIX, "123", "123"));
+  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::POSTFIX, "1234", "1234"));
 
-  //   NotationConverter nt{"1", ArithmeticNotation::INFIX};
-  //   converted = nt.convert(ArithmeticNotation::PREFIX);
-  //   EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
-
-  //   NotationConverter nt{"1", ArithmeticNotation::INFIX};
-  //   converted = nt.convert(ArithmeticNotation::POSTFIX);
-  //   EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
-
-  //   NotationConverter nt{"1", ArithmeticNotation::POSTFIX};
-  //   converted = nt.convert(ArithmeticNotation::PREFIX);
-  //   EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
-
-  //   NotationConverter nt{"1", ArithmeticNotation::POSTFIX};
-  //   converted = nt.convert(ArithmeticNotation::INFIX);
-  //   EXPECT_THAT(converted, testing::Eq(std::string{"1"}));
+  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::INFIX, "12345", "12345"));
+  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::PREFIX, "91231", "91231"));
 }
