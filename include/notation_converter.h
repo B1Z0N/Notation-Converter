@@ -1,39 +1,26 @@
 #ifndef NOTATION_CONVERTER_H
 #define NOTATION_CONVERTER_H
 
+#include "arithmetic_notation.h"
 #include <string>
 
-#include "notation_converter_util.h"
-
 namespace notation_conv {
-
-enum class ArithmeticNotation { PREFIX, INFIX, POSTFIX };
 
 class NotationConverter {
  public:
   NotationConverter() = default;
 
-  NotationConverter(const std::string& expr, ArithmeticNotation notation) {
-    insert(expr, notation);
-  }
+  NotationConverter(const std::string& expr, ArithmeticNotation notation);
 
-  void insert(const std::string& expr, ArithmeticNotation notation) {
-    expr_ = expr;
-    notation_ = notation;
-  }
+  void insert(const std::string& expr, ArithmeticNotation notation);
 
-  std::string convert(ArithmeticNotation notation) {
-    if (notation_ == notation) {
-      return expr_;
-    }
-    return expr_;
-  };
+  std::string convert(ArithmeticNotation notation);
 
  private:
-  std::string expr_ {};
-  ArithmeticNotation notation_ {};
+  std::string expr_{};
+  ArithmeticNotation notation_{};
 
-  std::string prefix_expr_ {};
+  std::string prefix_expr_{};
 };
 };  // namespace notation_conv
 

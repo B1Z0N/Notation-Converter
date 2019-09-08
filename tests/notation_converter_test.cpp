@@ -1,5 +1,6 @@
 #include "gmock/gmock.h"
 
+#include "arithmetic_notation.h"
 #include "notation_converter.h"
 
 #include <string>
@@ -46,16 +47,16 @@ TEST_F(NotationConverterInit, OneNumberFromXNotationToXNotation) {
   EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::POSTFIX, "945"));
 }
 
-TEST_F(NotationConverterInit, OneNumberFromXNotationToYNotation) {
-  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::INFIX, "1", "1"));
-  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::POSTFIX, "12", "12"));
+// TEST_F(NotationConverterInit, OneNumberFromXNotationToYNotation) {
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::INFIX, "1", "1"));
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::POSTFIX, "12", "12"));
 
-  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::PREFIX, "123", "123"));
-  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::POSTFIX, "1234", "1234"));
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::PREFIX, "123", "123"));
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::POSTFIX, "1234", "1234"));
 
-  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::INFIX, "12345", "12345"));
-  EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::PREFIX, "91231", "91231"));
-}
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::INFIX, "12345", "12345"));
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::PREFIX, "91231", "91231"));
+// }
 
 
 // TEST_F(NotationConverterInit, PlusFromXNotationToYNotation) {

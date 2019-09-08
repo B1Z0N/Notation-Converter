@@ -78,17 +78,6 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles /home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/progress.marks
@@ -134,6 +123,87 @@ run_tests/fast:
 	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
 .PHONY : run_tests/fast
 
+main.o: main.cpp.o
+
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/main.cpp.s
+.PHONY : main.cpp.s
+
+src/notation_converter.o: src/notation_converter.cpp.o
+
+.PHONY : src/notation_converter.o
+
+# target to build an object file
+src/notation_converter.cpp.o:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/notation_converter.cpp.o
+.PHONY : src/notation_converter.cpp.o
+
+src/notation_converter.i: src/notation_converter.cpp.i
+
+.PHONY : src/notation_converter.i
+
+# target to preprocess a source file
+src/notation_converter.cpp.i:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/notation_converter.cpp.i
+.PHONY : src/notation_converter.cpp.i
+
+src/notation_converter.s: src/notation_converter.cpp.s
+
+.PHONY : src/notation_converter.s
+
+# target to generate assembly for a file
+src/notation_converter.cpp.s:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/notation_converter.cpp.s
+.PHONY : src/notation_converter.cpp.s
+
+src/notation_converter_util.o: src/notation_converter_util.cpp.o
+
+.PHONY : src/notation_converter_util.o
+
+# target to build an object file
+src/notation_converter_util.cpp.o:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o
+.PHONY : src/notation_converter_util.cpp.o
+
+src/notation_converter_util.i: src/notation_converter_util.cpp.i
+
+.PHONY : src/notation_converter_util.i
+
+# target to preprocess a source file
+src/notation_converter_util.cpp.i:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.i
+.PHONY : src/notation_converter_util.cpp.i
+
+src/notation_converter_util.s: src/notation_converter_util.cpp.s
+
+.PHONY : src/notation_converter_util.s
+
+# target to generate assembly for a file
+src/notation_converter_util.cpp.s:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.s
+.PHONY : src/notation_converter_util.cpp.s
+
 tests/notation_converter_test.o: tests/notation_converter_test.cpp.o
 
 .PHONY : tests/notation_converter_test.o
@@ -161,6 +231,33 @@ tests/notation_converter_test.cpp.s:
 	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.s
 .PHONY : tests/notation_converter_test.cpp.s
 
+tests/notation_converter_util_test.o: tests/notation_converter_util_test.cpp.o
+
+.PHONY : tests/notation_converter_util_test.o
+
+# target to build an object file
+tests/notation_converter_util_test.cpp.o:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o
+.PHONY : tests/notation_converter_util_test.cpp.o
+
+tests/notation_converter_util_test.i: tests/notation_converter_util_test.cpp.i
+
+.PHONY : tests/notation_converter_util_test.i
+
+# target to preprocess a source file
+tests/notation_converter_util_test.cpp.i:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.i
+.PHONY : tests/notation_converter_util_test.cpp.i
+
+tests/notation_converter_util_test.s: tests/notation_converter_util_test.cpp.s
+
+.PHONY : tests/notation_converter_util_test.s
+
+# target to generate assembly for a file
+tests/notation_converter_util_test.cpp.s:
+	$(MAKE) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.s
+.PHONY : tests/notation_converter_util_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -168,12 +265,23 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... edit_cache"
 	@echo "... run_tests"
-	@echo "... test"
+	@echo "... edit_cache"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... src/notation_converter.o"
+	@echo "... src/notation_converter.i"
+	@echo "... src/notation_converter.s"
+	@echo "... src/notation_converter_util.o"
+	@echo "... src/notation_converter_util.i"
+	@echo "... src/notation_converter_util.s"
 	@echo "... tests/notation_converter_test.o"
 	@echo "... tests/notation_converter_test.i"
 	@echo "... tests/notation_converter_test.s"
+	@echo "... tests/notation_converter_util_test.o"
+	@echo "... tests/notation_converter_util_test.i"
+	@echo "... tests/notation_converter_util_test.s"
 .PHONY : help
 
 

@@ -10,15 +10,20 @@ include_directories(${GOOGLE_TEST_HOME_DIR}/googlemock/include ${GOOGLE_TEST_HOM
 link_directories(${GOOGLE_TEST_HOME_DIR}/build/lib)
 
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
-set(SOURCES )
-set(TEST_SOURCES notation_converter_test.cpp)
 
-add_executable(run_tests
+set(SOURCES 
+  src/notation_converter.cpp 
+  src/notation_converter_util.cpp 
+  main.cpp
+)
+
+set(TEST_SOURCES
   tests/notation_converter_test.cpp
-  )
+  tests/notation_converter_util_test.cpp
+)
 
-enable_testing()
-target_link_libraries(run_tests gtest gmock gtest_main)
+add_executable(run_tests ${TEST_SOURCES} ${SOURCES})
+target_link_libraries(run_tests gtest gmock)
 
 # setting up libpthread needed for google test
 find_package(Threads REQUIRED)
@@ -29,7 +34,3 @@ if(CMAKE_THREAD_LIBS_INIT)
   target_link_libraries(run_tests "${CMAKE_THREAD_LIBS_INIT}")
 endif()
 
-add_test(
-  NAME run_tests
-  COMMAND run_tests 
-  )

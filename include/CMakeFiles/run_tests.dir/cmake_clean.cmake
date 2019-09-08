@@ -1,5 +1,9 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/run_tests.dir/main.cpp.o"
+  "CMakeFiles/run_tests.dir/src/notation_converter.cpp.o"
+  "CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o"
   "CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.o"
+  "CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o"
   "run_tests"
   "run_tests.pdb"
 )

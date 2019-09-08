@@ -4,7 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/main.cpp" "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/run_tests.dir/main.cpp.o"
+  "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter.cpp" "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/run_tests.dir/src/notation_converter.cpp.o"
+  "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter_util.cpp" "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o"
   "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/tests/notation_converter_test.cpp" "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.o"
+  "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/tests/notation_converter_util_test.cpp" "/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

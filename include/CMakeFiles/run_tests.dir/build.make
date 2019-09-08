@@ -70,17 +70,77 @@ CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/b1zon/Desktop/cpp/arithmetic_notation_converter/tests/notation_converter_test.cpp -o CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.s
 
+CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o: CMakeFiles/run_tests.dir/flags.make
+CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o: ../tests/notation_converter_util_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o -c /home/b1zon/Desktop/cpp/arithmetic_notation_converter/tests/notation_converter_util_test.cpp
+
+CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/b1zon/Desktop/cpp/arithmetic_notation_converter/tests/notation_converter_util_test.cpp > CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.i
+
+CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/b1zon/Desktop/cpp/arithmetic_notation_converter/tests/notation_converter_util_test.cpp -o CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.s
+
+CMakeFiles/run_tests.dir/src/notation_converter.cpp.o: CMakeFiles/run_tests.dir/flags.make
+CMakeFiles/run_tests.dir/src/notation_converter.cpp.o: ../src/notation_converter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/run_tests.dir/src/notation_converter.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/run_tests.dir/src/notation_converter.cpp.o -c /home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter.cpp
+
+CMakeFiles/run_tests.dir/src/notation_converter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/src/notation_converter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter.cpp > CMakeFiles/run_tests.dir/src/notation_converter.cpp.i
+
+CMakeFiles/run_tests.dir/src/notation_converter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/src/notation_converter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter.cpp -o CMakeFiles/run_tests.dir/src/notation_converter.cpp.s
+
+CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o: CMakeFiles/run_tests.dir/flags.make
+CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o: ../src/notation_converter_util.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o -c /home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter_util.cpp
+
+CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter_util.cpp > CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.i
+
+CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/b1zon/Desktop/cpp/arithmetic_notation_converter/src/notation_converter_util.cpp -o CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.s
+
+CMakeFiles/run_tests.dir/main.cpp.o: CMakeFiles/run_tests.dir/flags.make
+CMakeFiles/run_tests.dir/main.cpp.o: ../main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/run_tests.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/run_tests.dir/main.cpp.o -c /home/b1zon/Desktop/cpp/arithmetic_notation_converter/main.cpp
+
+CMakeFiles/run_tests.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/b1zon/Desktop/cpp/arithmetic_notation_converter/main.cpp > CMakeFiles/run_tests.dir/main.cpp.i
+
+CMakeFiles/run_tests.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/b1zon/Desktop/cpp/arithmetic_notation_converter/main.cpp -o CMakeFiles/run_tests.dir/main.cpp.s
+
 # Object files for target run_tests
 run_tests_OBJECTS = \
-"CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.o"
+"CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.o" \
+"CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o" \
+"CMakeFiles/run_tests.dir/src/notation_converter.cpp.o" \
+"CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o" \
+"CMakeFiles/run_tests.dir/main.cpp.o"
 
 # External object files for target run_tests
 run_tests_EXTERNAL_OBJECTS =
 
 run_tests: CMakeFiles/run_tests.dir/tests/notation_converter_test.cpp.o
+run_tests: CMakeFiles/run_tests.dir/tests/notation_converter_util_test.cpp.o
+run_tests: CMakeFiles/run_tests.dir/src/notation_converter.cpp.o
+run_tests: CMakeFiles/run_tests.dir/src/notation_converter_util.cpp.o
+run_tests: CMakeFiles/run_tests.dir/main.cpp.o
 run_tests: CMakeFiles/run_tests.dir/build.make
 run_tests: CMakeFiles/run_tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable run_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable run_tests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/run_tests.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
