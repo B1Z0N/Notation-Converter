@@ -1,0 +1,4 @@
+/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/rebuild_cache.dir
+/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/edit_cache.dir
+/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/run_tests.dir
+/home/b1zon/Desktop/cpp/arithmetic_notation_converter/include/CMakeFiles/test.dir
