@@ -4,6 +4,8 @@
 
 #include <string>
 
+using namespace notation_conv;
+
 TEST(NotationConverter, Intitialization) {
   NotationConverter nt{"1", ArithmeticNotation::PREFIX};
 }
@@ -11,6 +13,14 @@ TEST(NotationConverter, Intitialization) {
 TEST(NotationConverter, PostInitialization) {
   NotationConverter nt;
   nt.insert("1", ArithmeticNotation::PREFIX);
+}
+
+TEST(NotationConverter, CopyMoveConstructionAndAssignment) {
+  NotationConverter nt1 {"3", ArithmeticNotation::POSTFIX};
+  NotationConverter nt2 {nt1};
+  NotationConverter nt3 {std::move(nt1)};
+  NotationConverter nt4 = nt2;
+  NotationConverter nt5 = std::move(nt2);
 }
 
 class NotationConverterInit : public testing::Test {
@@ -46,3 +56,15 @@ TEST_F(NotationConverterInit, OneNumberFromXNotationToYNotation) {
   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::INFIX, "12345", "12345"));
   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::PREFIX, "91231", "91231"));
 }
+
+
+// TEST_F(NotationConverterInit, PlusFromXNotationToYNotation) {
+  // EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::INFIX, "+ 1 1", "1 + 1"));
+  // EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX, ArithmeticNotation::POSTFIX, "+ 1 2", "1 2 +"));
+
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::PREFIX, "+ 123", "123"));
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::INFIX, ArithmeticNotation::POSTFIX, "1234", "1234"));
+
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::INFIX, "12345", "12345"));
+//   EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::POSTFIX, ArithmeticNotation::PREFIX, "91231", "91231"));
+// }
