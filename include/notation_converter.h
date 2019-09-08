@@ -1,8 +1,8 @@
 #ifndef NOTATION_CONVERTER_H
 #define NOTATION_CONVERTER_H
 
-#include "arithmetic_notation.h"
 #include <string>
+#include "arithmetic_notation.h"
 
 namespace notation_conv {
 

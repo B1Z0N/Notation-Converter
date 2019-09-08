@@ -2,7 +2,7 @@
 #define ARITHMETIC_NOTATION_H
 
 namespace notation_conv {
-  enum class ArithmeticNotation { PREFIX, INFIX, POSTFIX };
+enum class ArithmeticNotation { PREFIX, INFIX, POSTFIX };
 };
 
-#endif // ARITHMETIC_NOTATION_H
+#endif  // ARITHMETIC_NOTATION_H
