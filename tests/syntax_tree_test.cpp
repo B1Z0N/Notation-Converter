@@ -18,14 +18,6 @@ TEST(SyntaxTree, ConstructionAndAssignment) {
   SyntaxTree st{"1", ArithmeticNotation::PREFIX};
 }
 
-auto check_same_notation{
-    [](const std::string& expr, ArithmeticNotation notation) {
-      SyntaxTree st{expr, notation};
-      return st.to_notation(notation) == expr;
-    }};
-
-TEST(SyntaxTree, ConversionToTheSameNotation) {
-  ASSERT_TRUE(check_same_notation("+ 1 1", ArithmeticNotation::PREFIX));
-  ASSERT_TRUE(check_same_notation("+ 1 1", ArithmeticNotation::INFIX));
-  ASSERT_TRUE(check_same_notation("+ 1 1", ArithmeticNotation::POSTFIX));
+TEST(SyntaxTree, BuildingTreeFromDifferentNotation) {
+  
 }
