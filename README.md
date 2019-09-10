@@ -38,9 +38,9 @@ Use it like this:
 std::string expr {"1 + 2 * ( 3 - 2 )"};
 NotationConverter nc {expr, ArithemticNotation::INFIX};
 
-std::cout << nc.convert(ArithemticNotation::PREFIX) << '\n';    // "+ 1 * 2 - 3 2 "
-std::cout << nc.convert(ArithemticNotation::INFIX) << '\n';     // "1 + 2 * ( 3 - 2 ) "
-std::cout << nc.convert(ArithemticNotation::POSTFIX) << '\n';   // "1 2 3 2 - * + "
+std::cout << nc.convert(ArithemticNotation::PREFIX) << '\n';    // "+ 1 * 2 - 3 2"
+std::cout << nc.convert(ArithemticNotation::INFIX) << '\n';     // "1 + 2 * ( 3 - 2 )"
+std::cout << nc.convert(ArithemticNotation::POSTFIX) << '\n';   // "1 2 3 2 - * +"
 
 ```
 
