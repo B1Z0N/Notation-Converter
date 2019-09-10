@@ -9,6 +9,10 @@
 using namespace notation_conv;
 using namespace detail;
 
+////////////////////////////////////////////////////////////////////////////////
+// Helper functions tests
+////////////////////////////////////////////////////////////////////////////////
+
 void __gen_vofstr(std::vector<std::string>& res) {}
 
 template <typename T, typename... Ts>
@@ -110,6 +114,10 @@ TEST(is_greater_precedence, Basic) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// SyntaxTree tests
+////////////////////////////////////////////////////////////////////////////////
+
 TEST(SyntaxTree, ConstructionAndAssignment) {
   SyntaxTree st1;
   // SyntaxTree st2 {st1}; // not allowed
@@ -119,5 +127,6 @@ TEST(SyntaxTree, ConstructionAndAssignment) {
 
   SyntaxTree st{"1", ArithmeticNotation::PREFIX};
 }
+
 
 // TEST(SyntaxTree, BuildingTreeFromDifferentNotation) { SyntaxTree st{"1"}; }

@@ -33,9 +33,8 @@ bool is_greater_precedence(const std::string& op1, const std::string& op2) {
       return 2;
     } else if (op == "/" || op == "*") {
       return 1;
-    } else {
-      return 3;
     }
+    return 3;
   }};
 
   // lowest comes first
@@ -78,6 +77,8 @@ std::string SyntaxTree::Node::stringify(ArithmeticNotation notation) const {
     case ArithmeticNotation::POSTFIX:
       return stringify_to_postfix();
   }
+
+  return {}; // disabling compiler warning about function returning nothing
 }
 
 void SyntaxTree::Node::nodify_from_prefix(
