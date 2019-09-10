@@ -29,7 +29,7 @@ class SyntaxTree {
     ~Node();
 
     void nodify(const std::string& expr, ArithmeticNotation notation);
-    std::string stringify(ArithmeticNotation notation);
+    std::string stringify(ArithmeticNotation notation) const;
 
    private:
     Node* left_{};
@@ -40,13 +40,13 @@ class SyntaxTree {
     void nodify_from_infix(const std::vector<std::string>& splited);
     void nodify_from_postfix(const std::vector<std::string>& splited);
 
-    std::string stringify_to_prefix();
-    std::string stringify_to_infix();
-    std::string stringify_to_postfix();
+    std::string stringify_to_prefix() const;
+    std::string stringify_to_infix() const;
+    std::string stringify_to_postfix() const;
 
     void clear();
   };
-  Node node_;
+  Node tree_;
 };
 
 };  // namespace detail

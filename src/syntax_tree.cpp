@@ -11,26 +11,29 @@
 namespace notation_conv {
 namespace detail {
 
+// using namespace std::string_literals;
+
 std::vector<std::string> split(const std::string& str) {
   std::vector<std::string> contatiner;
   std::istringstream iss{str};
   std::copy(std::istream_iterator<std::string>{iss},
             std::istream_iterator<std::string>{},
-            std::back_inserter{contatiner});
+            std::back_inserter(contatiner));
 
   return contatiner;
 }
 
 bool is_operator(const std::string& str) {
-  return (str[0] == '+' || str[0] == '-' || str == '*' || str == '/') &&
-         str.size() == 1;
+  return (((str[0] == '+') || (str[0] == '-') || (str[0] == '*') ||
+           (str[0] == '/')) &&
+          (str.size() == 1));
 }
 
 bool is_greater_precedence(const std::string& op1, const std::string& op2) {
   static auto precedence{[](const std::string& op) -> int {
-    if (op == "+"s || op == "-"s) {
+    if (op == "+" || op == "-") {
       return 2;
-    } else if (op == "/"s || op == "*"s) {
+    } else if (op == "/" || op == "*") {
       return 1;
     } else {
       return 3;
@@ -42,16 +45,16 @@ bool is_greater_precedence(const std::string& op1, const std::string& op2) {
 }
 
 SyntaxTree::SyntaxTree(const std::string& expr, ArithmeticNotation notation) {
-  node_.nodify(expr, notation);
+  tree_.nodify(expr, notation);
 }
 
-std::string SyntaxTree::to_notation(ArithmeticNotation notation) {
-  return node_.stringify(notation);
+std::string SyntaxTree::to_notation(ArithmeticNotation notation) const {
+  return tree_.stringify(notation);
 }
 
 void SyntaxTree::Node::nodify(const std::string& expr,
                               ArithmeticNotation notation) {
-  std::vector<std::string> vec = split(expr);
+  std::vector<std::string> vec{split(expr)};
   switch (notation) {
     case ArithmeticNotation::PREFIX: {
       nodify_from_prefix(vec);
@@ -68,7 +71,7 @@ void SyntaxTree::Node::nodify(const std::string& expr,
   }
 }
 
-std::string SyntaxTree::Node::stringify(ArithmeticNotation notation) {
+std::string SyntaxTree::Node::stringify(ArithmeticNotation notation) const {
   switch (notation) {
     case ArithmeticNotation::PREFIX:
       return stringify_to_prefix();
@@ -87,11 +90,11 @@ void SyntaxTree::Node::nodify_from_prefix(
   for (std::size_t i = 0; i < splited.size() && !st.empty(); ++i) {
     Node* nd = st.top();
     st.pop();
-    nd.data_ = splited[i];
+    nd->data_ = splited[i];
 
-    if (is_operator(nd.data_)) {
-      nd.left_ = new Node{};
-      nd.right_ = new Node{};
+    if (is_operator(nd->data_)) {
+      nd->left_ = new Node{};
+      nd->right_ = new Node{};
 
       st.push(nd->right_);
       st.push(nd->left_);
@@ -101,6 +104,7 @@ void SyntaxTree::Node::nodify_from_prefix(
 
 void SyntaxTree::Node::nodify_from_infix(
     const std::vector<std::string>& splited) {
+  // shunting yard algo
   static auto from_infix_to_postfix{
       [](const std::vector<std::string>& splited) {
         std::stack<std::string&> st;
@@ -117,10 +121,10 @@ void SyntaxTree::Node::nodify_from_infix(
               st.pop();
             }
             st.push(token);
-          } else if (token == "("s) {
+          } else if (token == "(") {
             st.push(token);
-          } else if (token == ")"s) {
-            while (st.top() != "("s && !st.empty()) {
+          } else if (token == ")") {
+            while (st.top() != "(" && !st.empty()) {
               postfix.push_back(st.top());
               st.pop();
             }
@@ -164,10 +168,10 @@ void SyntaxTree::Node::nodify_from_postfix(
   }
 }
 
-std::string SyntaxTree::Node::stringify_to_prefix() {
+std::string SyntaxTree::Node::stringify_to_prefix() const {
   static auto stringify{[](Node* nd, std::string& result_expr) {
     if (nd == nullptr) return;
-    result_expr += nd.data_ + " "s;
+    result_expr += nd.data_ + " ";
 
     stringify(nd->left, result_expr);
     stringify(nd->right, result_expr);
@@ -180,21 +184,21 @@ std::string SyntaxTree::Node::stringify_to_prefix() {
   return result_expr;
 }
 
-std::string SyntaxTree::Node::stringify_to_infix() {
+std::string SyntaxTree::Node::stringify_to_infix() const {
   static auto stringify{[](Node* nd, std::string& result_expr) {
     if (nd == nullptr) return;
 
     if (nd->left_ != nullptr &&
         is_greater_precedence(nd->data_, nd->left_->data_)) {
-      result_expr += "( "s;
+      result_expr += "( ";
     }
     stringify(nd->left_, result_expr);
 
-    result_expr += nd.data_ + " "s;
+    result_expr += nd.data_ + " ";
 
     if (nd->right_ != nullptr &&
         is_greater_precedence(nd->data_, nd->right_->data_)) {
-      result_expr += ") "s;
+      result_expr += ") ";
     }
     stringify(nd->right_, result_expr);
 
@@ -206,14 +210,14 @@ std::string SyntaxTree::Node::stringify_to_infix() {
   return result_expr;
 }
 
-std::string SyntaxTree::Node::stringify_to_postfix() {
+std::string SyntaxTree::Node::stringify_to_postfix() const {
   static auto stringify{[](Node* nd, std::string& result_expr) {
     if (nd == nullptr) return;
 
     stringify(nd->left, result_expr);
     stringify(nd->right, result_expr);
 
-    result_expr += nd.data_ + " "s;
+    result_expr += nd.data_ + " ";
   }};
 
   std::string result_expr;
