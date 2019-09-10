@@ -14,12 +14,13 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 set(SOURCES 
   src/notation_converter.cpp 
   src/syntax_tree.cpp 
-  main.cpp
 )
 
 set(TEST_SOURCES
   tests/notation_converter_test.cpp
   tests/syntax_tree_test.cpp
+  tests/main.cpp
+
 )
 
 add_executable(run_tests ${TEST_SOURCES} ${SOURCES})

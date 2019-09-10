@@ -175,7 +175,10 @@ TEST(SyntaxTree, ConversionOfSingleOperatorExpression) {
   ASSERT_EQ(postfix.to_notation(ArithmeticNotation::PREFIX), "+ 1 2");
   ASSERT_EQ(postfix.to_notation(ArithmeticNotation::INFIX), "1 + 2");
   ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "1 2 +");
-
 }
+
+// TEST(SyntaxTree, ConversionOfT) {
+
+// }
 
 // TEST(SyntaxTree, BuildingTreeFromDifferentNotation) { SyntaxTree st{"1"}; }
