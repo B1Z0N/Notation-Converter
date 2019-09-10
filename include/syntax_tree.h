@@ -11,6 +11,7 @@ namespace notation_conv {
 namespace detail {
 
 std::vector<std::string> split(const std::string& s);
+void trim(std::string& s);
 
 bool is_operator(const std::string& s);
 bool is_greater_precedence(const std::string& op1, const std::string& op2);
@@ -18,6 +19,10 @@ bool is_greater_precedence(const std::string& op1, const std::string& op2);
 class SyntaxTree {
  public:
   SyntaxTree() = default;
+  SyntaxTree(SyntaxTree&&) = default;
+  SyntaxTree& operator=(SyntaxTree&&) = default;
+  SyntaxTree(const SyntaxTree&) = delete;
+  SyntaxTree& operator=(const SyntaxTree&) = delete;
 
   SyntaxTree(const std::string& expr, ArithmeticNotation notation);
 

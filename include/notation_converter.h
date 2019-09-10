@@ -10,6 +10,10 @@ namespace notation_conv {
 class NotationConverter {
  public:
   NotationConverter() = default;
+  NotationConverter(NotationConverter&&) = default;
+  NotationConverter& operator=(NotationConverter&&) = default;
+  NotationConverter(const NotationConverter&) = delete;
+  NotationConverter& operator=(const NotationConverter*) = delete;
 
   NotationConverter(const std::string& expr, ArithmeticNotation notation);
 

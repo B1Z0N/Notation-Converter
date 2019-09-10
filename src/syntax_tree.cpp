@@ -21,6 +21,26 @@ std::vector<std::string> split(const std::string& str) {
   return contatiner;
 }
 
+void trim(std::string& str) {
+  // trim from start (in place)
+  static auto ltrim{[](std::string& s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+                                    [](int ch) { return !std::isspace(ch); }));
+  }};
+
+  // trim from end (in place)
+  static auto rtrim{[](std::string& s) {
+    s.erase(std::find_if(s.rbegin(), s.rend(),
+                         [](int ch) { return !std::isspace(ch); })
+                .base(),
+            s.end());
+  }};
+
+  // trim from both ends (in place)
+  ltrim(str);
+  rtrim(str);
+}
+
 bool is_operator(const std::string& str) {
   return (((str[0] == '+') || (str[0] == '-') || (str[0] == '*') ||
            (str[0] == '/')) &&
@@ -33,8 +53,10 @@ bool is_greater_precedence(const std::string& op1, const std::string& op2) {
       return 2;
     } else if (op == "/" || op == "*") {
       return 1;
+    } else if (op == "(" || op == ")") {
+      return 3;
     }
-    return 3;
+    return 0;
   }};
 
   // lowest comes first
@@ -69,16 +91,24 @@ void SyntaxTree::Node::nodify(const std::string& expr,
 }
 
 std::string SyntaxTree::Node::stringify(ArithmeticNotation notation) const {
+  std::string res;
   switch (notation) {
-    case ArithmeticNotation::PREFIX:
-      return stringify_to_prefix();
-    case ArithmeticNotation::INFIX:
-      return stringify_to_infix();
-    case ArithmeticNotation::POSTFIX:
-      return stringify_to_postfix();
+    case ArithmeticNotation::PREFIX: {
+      res = stringify_to_prefix();
+      break;
+    }
+    case ArithmeticNotation::INFIX: {
+      res = stringify_to_infix();
+      break;
+    }
+    case ArithmeticNotation::POSTFIX: {
+      res = stringify_to_postfix();
+      break;
+    }
   }
 
-  return {}; // disabling compiler warning about function returning nothing
+  trim(res);
+  return res;
 }
 
 void SyntaxTree::Node::nodify_from_prefix(

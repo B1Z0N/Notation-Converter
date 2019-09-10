@@ -9,10 +9,10 @@ using namespace notation_conv;
 
 TEST(NotationConverter, CopyMoveConstructionAndAssignment) {
   NotationConverter nt1{"3", ArithmeticNotation::POSTFIX};
-  NotationConverter nt2{nt1};
+  // NotationConverter nt2{nt1}; // not allowed
   NotationConverter nt3{std::move(nt1)};
-  NotationConverter nt4 = nt2;
-  NotationConverter nt5 = std::move(nt2);
+  // NotationConverter nt4 = nt2; // not allowed
+  NotationConverter nt5 = std::move(nt3);
 }
 
 class NotationConverterInit : public testing::Test {
