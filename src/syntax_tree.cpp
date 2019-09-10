@@ -26,7 +26,7 @@ bool is_operator(const std::string& str) {
          str.size() == 1;
 }
 
-bool is_ge_precedence(const std::string& op1, const std::string& op2) {
+bool is_greater_precedence(const std::string& op1, const std::string& op2) {
   static auto precedence{[](const std::string& op) -> int {
     if (op == "+"s || op == "-"s) {
       return 2;
@@ -38,7 +38,7 @@ bool is_ge_precedence(const std::string& op1, const std::string& op2) {
   }};
 
   // lowest comes first
-  return precedence(op1) <= precedence(op2);
+  return precedence(op1) < precedence(op2);
 }
 
 SyntaxTree::SyntaxTree(const std::string& expr, ArithmeticNotation notation) {
@@ -110,12 +110,12 @@ void SyntaxTree::Node::nodify_from_infix(
           std::string& token = splited[i];
 
           if (is_operator(token)) {
-            while (is_ge_precedence(st.top(), token) && !st.empty()) {
+            while (
+                (is_greater_precedence(st.top(), token) || token == st.top()) &&
+                !st.empty()) {
               postfix.push_back(st.top());
               st.pop();
             }
-            // if (st.empty())
-            //   throw std::underflow_error{"Check expression correctness!"};
             st.push(token);
           } else if (token == "("s) {
             st.push(token);
@@ -180,7 +180,31 @@ std::string SyntaxTree::Node::stringify_to_prefix() {
   return result_expr;
 }
 
-std::string SyntaxTree::Node::stringify_to_infix() {}
+std::string SyntaxTree::Node::stringify_to_infix() {
+  static auto stringify{[](Node* nd, std::string& result_expr) {
+    if (nd == nullptr) return;
+
+    if (nd->left_ != nullptr &&
+        is_greater_precedence(nd->data_, nd->left_->data_)) {
+      result_expr += "( "s;
+    }
+    stringify(nd->left_, result_expr);
+
+    result_expr += nd.data_ + " "s;
+
+    if (nd->right_ != nullptr &&
+        is_greater_precedence(nd->data_, nd->right_->data_)) {
+      result_expr += ") "s;
+    }
+    stringify(nd->right_, result_expr);
+
+    return result_expr;
+  }};
+
+  std::string result_expr;
+  stringify(this, result_expr);
+  return result_expr;
+}
 
 std::string SyntaxTree::Node::stringify_to_postfix() {
   static auto stringify{[](Node* nd, std::string& result_expr) {
