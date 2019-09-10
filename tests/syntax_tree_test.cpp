@@ -55,6 +55,61 @@ TEST(split, SplitMultipleSpaces) {
   ASSERT_EQ(split("4  1   a   3      "), gen_vofstr("4", "1", "a", "3"));
 }
 
+TEST(is_operator, Basic) {
+  ASSERT_TRUE(is_operator("+"));
+  ASSERT_TRUE(is_operator("-"));
+  ASSERT_TRUE(is_operator("/"));
+  ASSERT_TRUE(is_operator("*"));
+
+  ASSERT_FALSE(is_operator("("));
+  ASSERT_FALSE(is_operator(")"));
+  ASSERT_FALSE(is_operator("2"));
+  ASSERT_FALSE(is_operator("sasd"));
+}
+
+TEST(is_greater_precedence, Basic) {
+  ASSERT_TRUE(is_greater_precedence("/", "+"));
+  ASSERT_TRUE(is_greater_precedence("/", "-"));
+  ASSERT_TRUE(is_greater_precedence("/", "("));
+  ASSERT_TRUE(is_greater_precedence("/", ")"));
+  ASSERT_TRUE(is_greater_precedence("/", "diksa"));
+
+  ASSERT_TRUE(is_greater_precedence("*", "+"));
+  ASSERT_TRUE(is_greater_precedence("*", "-"));
+  ASSERT_TRUE(is_greater_precedence("*", "("));
+  ASSERT_TRUE(is_greater_precedence("*", ")"));
+  ASSERT_TRUE(is_greater_precedence("*", "asdf"));
+
+  ASSERT_TRUE(is_greater_precedence("+", "("));
+  ASSERT_TRUE(is_greater_precedence("+", ")"));
+  ASSERT_TRUE(is_greater_precedence("+", "dkjiwo"));
+  ASSERT_TRUE(is_greater_precedence("-", "("));
+  ASSERT_TRUE(is_greater_precedence("-", ")"));
+  ASSERT_TRUE(is_greater_precedence("-", "xckkw"));
+
+  ASSERT_FALSE(is_greater_precedence("+", "*"));
+  ASSERT_FALSE(is_greater_precedence("+", "/"));
+
+  ASSERT_FALSE(is_greater_precedence("-", "*"));
+  ASSERT_FALSE(is_greater_precedence("-", "/"));
+
+  ASSERT_FALSE(is_greater_precedence("(", "*"));
+  ASSERT_FALSE(is_greater_precedence("(", "/"));
+  ASSERT_FALSE(is_greater_precedence("(", "+"));
+  ASSERT_FALSE(is_greater_precedence("(", "-"));
+  ASSERT_FALSE(is_greater_precedence("(", "klsd"));
+
+  ASSERT_FALSE(is_greater_precedence(")", "*"));
+  ASSERT_FALSE(is_greater_precedence(")", "/"));
+  ASSERT_FALSE(is_greater_precedence(")", "+"));
+  ASSERT_FALSE(is_greater_precedence(")", "-"));
+  ASSERT_FALSE(is_greater_precedence(")", "klsd"));
+
+  for (auto x : gen_vofstr("+", "-", "*", "/", "(", ")", "adiq")) {
+    ASSERT_FALSE(is_greater_precedence(x, x));
+  }
+}
+
 TEST(SyntaxTree, ConstructionAndAssignment) {
   SyntaxTree st1;
   // SyntaxTree st2 {st1}; // not allowed

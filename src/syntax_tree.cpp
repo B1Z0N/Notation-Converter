@@ -11,8 +11,6 @@
 namespace notation_conv {
 namespace detail {
 
-// using namespace std::string_literals;
-
 std::vector<std::string> split(const std::string& str) {
   std::vector<std::string> contatiner;
   std::istringstream iss{str};

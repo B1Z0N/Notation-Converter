@@ -13,7 +13,7 @@ namespace detail {
 std::vector<std::string> split(const std::string& s);
 
 bool is_operator(const std::string& s);
-bool is_ge_precedence(const std::string& op1, const std::string& op2);
+bool is_greater_precedence(const std::string& op1, const std::string& op2);
 
 class SyntaxTree {
  public:
