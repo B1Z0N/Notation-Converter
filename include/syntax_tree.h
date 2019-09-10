@@ -12,6 +12,9 @@ namespace detail {
 
 std::vector<std::string> split(const std::string& s);
 
+bool is_operator(const std::string& s);
+bool is_ge_precedence(const std::string& op1, const std::string& op2);
+
 class SyntaxTree {
  public:
   SyntaxTree() = default;
@@ -29,9 +32,9 @@ class SyntaxTree {
     std::string stringify(ArithmeticNotation notation);
 
    private:
-    Node* left_ {};
-    Node* right_ {};
-    std::string data_ {};
+    Node* left_{};
+    Node* right_{};
+    std::string data_{};
 
     void nodify_from_prefix(const std::vector<std::string>& splited);
     void nodify_from_infix(const std::vector<std::string>& splited);

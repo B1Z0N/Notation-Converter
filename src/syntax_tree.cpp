@@ -11,14 +11,34 @@
 namespace notation_conv {
 namespace detail {
 
-std::vector<std::string> split(const std::string& s) {
+std::vector<std::string> split(const std::string& str) {
   std::vector<std::string> contatiner;
-  std::istringstream iss(s);
+  std::istringstream iss{str};
   std::copy(std::istream_iterator<std::string>{iss},
             std::istream_iterator<std::string>{},
             std::back_inserter{contatiner});
 
   return contatiner;
+}
+
+bool is_operator(const std::string& str) {
+  return (str[0] == '+' || str[0] == '-' || str == '*' || str == '/') &&
+         str.size() == 1;
+}
+
+bool is_ge_precedence(const std::string& op1, const std::string& op2) {
+  static auto precedence{[](const std::string& op) -> int {
+    if (op == "+"s || op == "-"s) {
+      return 2;
+    } else if (op == "/"s || op == "*"s) {
+      return 1;
+    } else {
+      return 3;
+    }
+  }};
+
+  // lowest comes first
+  return precedence(op1) <= precedence(op2);
 }
 
 SyntaxTree::SyntaxTree(const std::string& expr, ArithmeticNotation notation) {
@@ -59,13 +79,8 @@ std::string SyntaxTree::Node::stringify(ArithmeticNotation notation) {
   }
 }
 
-bool is_operator(std::string str) {
-  return (str[0] == '+' || str[0] == '-' || str == '*' || str == '/') &&
-         str.size() == 1;
-}
-
 void SyntaxTree::Node::nodify_from_prefix(
-    const std::vector<std::string> splited) {
+    const std::vector<std::string>& splited) {
   std::stack<Node*> st;
   st.push(this);
 
@@ -86,11 +101,51 @@ void SyntaxTree::Node::nodify_from_prefix(
 
 void SyntaxTree::Node::nodify_from_infix(
     const std::vector<std::string>& splited) {
-  // TODO: ???
+  static auto from_infix_to_postfix{
+      [](const std::vector<std::string>& splited) {
+        std::stack<std::string&> st;
+        std::vector<std::string> postfix;
+
+        for (std::size_t i = 0; i < splited.size(); ++i) {
+          std::string& token = splited[i];
+
+          if (is_operator(token)) {
+            while (is_ge_precedence(st.top(), token) && !st.empty()) {
+              postfix.push_back(st.top());
+              st.pop();
+            }
+            // if (st.empty())
+            //   throw std::underflow_error{"Check expression correctness!"};
+            st.push(token);
+          } else if (token == "("s) {
+            st.push(token);
+          } else if (token == ")"s) {
+            while (st.top() != "("s && !st.empty()) {
+              postfix.push_back(st.top());
+              st.pop();
+            }
+
+            if (st.empty())
+              throw std::underflow_error{"Left paren is missing!"};
+            st.pop();
+          } else {  // just a number
+            postfix.push_back(token);
+          }
+        }
+
+        while (!st.empty()) {
+          postfix.push_back(st.top());
+          st.pop();
+        }
+
+        return postfix;
+      }};
+
+  nodify_from_postfix(from_infix_to_postfix(splited));
 }
 
 void SyntaxTree::Node::nodify_from_postfix(
-    const std::vector<std::string> splited) {
+    const std::vector<std::string>& splited) {
   std::stack<Node*> st;
   st.push(this);
 
