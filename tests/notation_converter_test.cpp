@@ -7,15 +7,6 @@
 
 using namespace notation_conv;
 
-TEST(NotationConverter, Intitialization) {
-  NotationConverter nt{"1", ArithmeticNotation::PREFIX};
-}
-
-TEST(NotationConverter, PostInitialization) {
-  NotationConverter nt;
-  nt.insert("1", ArithmeticNotation::PREFIX);
-}
-
 TEST(NotationConverter, CopyMoveConstructionAndAssignment) {
   NotationConverter nt1{"3", ArithmeticNotation::POSTFIX};
   NotationConverter nt2{nt1};
@@ -30,21 +21,21 @@ class NotationConverterInit : public testing::Test {
  public:
   bool from_x_to_y_notation(ArithmeticNotation from, ArithmeticNotation to,
                             std::string start_expr, std::string end_expr) {
-    nt.insert(start_expr, from);
+    nt = NotationConverter {start_expr, from};
     return nt.convert(to) == end_expr;
   }
 };
 
-TEST_F(NotationConverterInit, OneNumberFromXNotationToXNotation) {
-  auto from_x_to_x_notation{
-      [this](ArithmeticNotation notation, std::string expr) {
-        return from_x_to_y_notation(notation, notation, expr, expr);
-      }};
+// TEST_F(NotationConverterInit, OneNumberFromXNotationToXNotation) {
+//   auto from_x_to_x_notation{
+//       [this](ArithmeticNotation notation, std::string expr) {
+//         return from_x_to_y_notation(notation, notation, expr, expr);
+//       }};
 
-  EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::PREFIX, "1"));
-  EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::INFIX, "12"));
-  EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::POSTFIX, "945"));
-}
+//   EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::PREFIX, "1"));
+//   EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::INFIX, "12"));
+//   EXPECT_TRUE(from_x_to_x_notation(ArithmeticNotation::POSTFIX, "945"));
+// }
 
 // TEST_F(NotationConverterInit, OneNumberFromXNotationToYNotation) {
   // EXPECT_TRUE(from_x_to_y_notation(ArithmeticNotation::PREFIX,

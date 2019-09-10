@@ -4,9 +4,56 @@
 #include "syntax_tree.h"
 
 #include <string>
+#include <vector>
 
 using namespace notation_conv;
 using namespace detail;
+
+void __gen_vofstr(std::vector<std::string>& res) {}
+
+template <typename T, typename... Ts>
+void __gen_vofstr(std::vector<std::string>& res, T head, Ts... tail) {
+  res.push_back(std::string{head});
+  __gen_vofstr(res, tail...);
+}
+
+template <typename... Ts>
+std::vector<std::string> gen_vofstr(Ts... tail) {
+  std::vector<std::string> res;
+  __gen_vofstr(res, tail...);
+  return res;
+}
+
+TEST(split, SplitSingleSpaces) {
+  using vofstr = std::vector<std::string>;
+
+  vofstr v1 = gen_vofstr("1");
+  ASSERT_EQ(split("1"), v1);
+  ASSERT_EQ(split("1 "), v1);
+  ASSERT_EQ(split(" 1"), v1);
+  ASSERT_EQ(split(" 1 "), v1);
+
+  vofstr v2 = gen_vofstr("1", "a", "3");
+  ASSERT_EQ(split("1 a 3"), v2);
+  ASSERT_EQ(split(" 1 a 3 "), v2);
+  ASSERT_EQ(split(" 1 a 3 4"), gen_vofstr("1", "a", "3", "4"));
+  ASSERT_EQ(split("4 1 a 3 "), gen_vofstr("4", "1", "a", "3"));
+}
+
+TEST(split, SplitMultipleSpaces) {
+  using vofstr = std::vector<std::string>;
+
+  vofstr v1 = gen_vofstr("1");
+  ASSERT_EQ(split("1       "), v1);
+  ASSERT_EQ(split("         1"), v1);
+  ASSERT_EQ(split("    1     "), v1);
+
+  vofstr v2 = gen_vofstr("1", "a", "3");
+  ASSERT_EQ(split("1  a     3"), v2);
+  ASSERT_EQ(split("   1  a 3   "), v2);
+  ASSERT_EQ(split("   1 a  3 4"), gen_vofstr("1", "a", "3", "4"));
+  ASSERT_EQ(split("4  1   a   3      "), gen_vofstr("4", "1", "a", "3"));
+}
 
 TEST(SyntaxTree, ConstructionAndAssignment) {
   SyntaxTree st1;
@@ -18,6 +65,4 @@ TEST(SyntaxTree, ConstructionAndAssignment) {
   SyntaxTree st{"1", ArithmeticNotation::PREFIX};
 }
 
-TEST(SyntaxTree, BuildingTreeFromDifferentNotation) {
-  
-}
+// TEST(SyntaxTree, BuildingTreeFromDifferentNotation) { SyntaxTree st{"1"}; }

@@ -107,11 +107,11 @@ void SyntaxTree::Node::nodify_from_infix(
   // shunting yard algo
   static auto from_infix_to_postfix{
       [](const std::vector<std::string>& splited) {
-        std::stack<std::string&> st;
+        std::stack<std::string> st;
         std::vector<std::string> postfix;
 
         for (std::size_t i = 0; i < splited.size(); ++i) {
-          std::string& token = splited[i];
+          std::string token = splited[i];
 
           if (is_operator(token)) {
             while (
@@ -156,11 +156,11 @@ void SyntaxTree::Node::nodify_from_postfix(
   for (int i = splited.size() - 1; i >= 0 && !st.empty(); --i) {
     Node* nd = st.top();
     st.pop();
-    nd.data_ = splited[i];
+    nd->data_ = splited[i];
 
-    if (is_operator(nd.data_)) {
-      nd.left_ = new Node{};
-      nd.right_ = new Node{};
+    if (is_operator(nd->data_)) {
+      nd->left_ = new Node{};
+      nd->right_ = new Node{};
 
       st.push(nd->left_);
       st.push(nd->right_);
@@ -169,63 +169,67 @@ void SyntaxTree::Node::nodify_from_postfix(
 }
 
 std::string SyntaxTree::Node::stringify_to_prefix() const {
-  static auto stringify{[](Node* nd, std::string& result_expr) {
+  // trick with passing itself as a parameter is to
+  // workaround compiler error:
+  // "use of 'stringify' before deduction of auto"
+  static auto stringify{[](const auto stringify, const Node* nd,
+                           std::string& result_expr) -> void {
     if (nd == nullptr) return;
-    result_expr += nd.data_ + " ";
+    result_expr += nd->data_ + " ";
 
-    stringify(nd->left, result_expr);
-    stringify(nd->right, result_expr);
-
-    return result_expr;
+    stringify(stringify, nd->left_, result_expr);
+    stringify(stringify, nd->right_, result_expr);
   }};
 
   std::string result_expr;
-  stringify(this, result_expr);
+  stringify(stringify, this, result_expr);
   return result_expr;
 }
 
 std::string SyntaxTree::Node::stringify_to_infix() const {
-  static auto stringify{[](Node* nd, std::string& result_expr) {
+  // read more about the trick in "stringify_to_prefix"
+  static auto stringify{[](const auto stringify, const Node* nd,
+                           std::string& result_expr) -> void {
     if (nd == nullptr) return;
 
     if (nd->left_ != nullptr &&
         is_greater_precedence(nd->data_, nd->left_->data_)) {
       result_expr += "( ";
     }
-    stringify(nd->left_, result_expr);
+    stringify(stringify, nd->left_, result_expr);
 
-    result_expr += nd.data_ + " ";
+    result_expr += nd->data_ + " ";
 
     if (nd->right_ != nullptr &&
         is_greater_precedence(nd->data_, nd->right_->data_)) {
       result_expr += ") ";
     }
-    stringify(nd->right_, result_expr);
-
-    return result_expr;
+    stringify(stringify, nd->right_, result_expr);
   }};
 
   std::string result_expr;
-  stringify(this, result_expr);
+  stringify(stringify, this, result_expr);
   return result_expr;
 }
 
 std::string SyntaxTree::Node::stringify_to_postfix() const {
-  static auto stringify{[](Node* nd, std::string& result_expr) {
+  // read more about the trick in "stringify_to_prefix"
+  static auto stringify{[](const auto stringify, const Node* nd,
+                           std::string& result_expr) -> void {
     if (nd == nullptr) return;
 
-    stringify(nd->left, result_expr);
-    stringify(nd->right, result_expr);
+    stringify(stringify, nd->left_, result_expr);
+    stringify(stringify, nd->right_, result_expr);
 
-    result_expr += nd.data_ + " ";
+    result_expr += nd->data_ + " ";
   }};
 
   std::string result_expr;
-  stringify(this, result_expr);
+  stringify(stringify, this, result_expr);
   return result_expr;
 }
 
-void SyntaxTree::Node::~Node() {
+SyntaxTree::Node::~Node() {
   if (left_) delete left_;
   if (right_) delete right_;
 }
