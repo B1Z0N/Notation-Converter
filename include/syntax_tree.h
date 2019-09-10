@@ -21,7 +21,7 @@ class SyntaxTree {
 
   SyntaxTree(const std::string& expr, ArithmeticNotation notation);
 
-  std::string to_notation(ArithmeticNotation notation);
+  std::string to_notation(ArithmeticNotation notation) const;
 
  private:
   struct Node {

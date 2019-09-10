@@ -3,6 +3,7 @@
 
 #include <string>
 #include "arithmetic_notation.h"
+#include "syntax_tree.h"
 
 namespace notation_conv {
 
@@ -12,16 +13,12 @@ class NotationConverter {
 
   NotationConverter(const std::string& expr, ArithmeticNotation notation);
 
-  void insert(const std::string& expr, ArithmeticNotation notation);
-
-  std::string convert(ArithmeticNotation notation);
+  std::string convert(ArithmeticNotation notation) const;
 
  private:
-  std::string expr_{};
-  ArithmeticNotation notation_{};
-
-  std::string prefix_expr_{};
+  detail::SyntaxTree tree_;
 };
+
 };  // namespace notation_conv
 
 #endif  // NOTATION_CONVERTER_H
