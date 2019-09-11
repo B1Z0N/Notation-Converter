@@ -161,10 +161,10 @@ TEST(SyntaxTree, ConversionOfSingleNumber) {
 }
 
 TEST(SyntaxTree, ConversionOfSingleOperatorExpression) {
-  SyntaxTree prefix {" +  1  2 ", ArithmeticNotation::PREFIX};
-  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "+ 1 2");
-  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "1 + 2");
-  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "1 2 +");
+  SyntaxTree prefix {" +  1  1 ", ArithmeticNotation::PREFIX};
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "+ 1 1");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "1 + 1");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "1 1 +");
 
   SyntaxTree infix {" 1   + 2 ", ArithmeticNotation::INFIX};
   ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "+ 1 2");
