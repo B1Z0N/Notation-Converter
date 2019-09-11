@@ -246,10 +246,25 @@ TEST(SyntaxTree, ConversionOfTwoOperatorsWithDifferentPrecedenceInParentheses) {
 }
 
 TEST(SyntaxTree, ConversionWithAdditionalParentheses) {
-  SyntaxTree infix {" ( ( ( 2   ) -  (   3 )  )  *  (  5 )  ) ", ArithmeticNotation::INFIX};
-  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "* - 2 3 5");
-  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "( 2 - 3 ) * 5");
-  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "2 3 - 5 *");
-
+  SyntaxTree infix {"( ( 5 ) * ( ( 3 ) + ( 2 ) ) )", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "* 5 + 3 2");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "5 * ( 3 + 2 )");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "5 3 2 + *");
 }
-// TEST(SyntaxTree, BuildingTreeFromDifferentNotation) { SyntaxTree st{"1"}; }
+
+TEST(SyntaxTree, ComplexConversion) {
+  SyntaxTree prefix {"- * 5 - 3 + 2 * 6 / - 2 3 + 7 8 11", ArithmeticNotation::PREFIX};
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "- * 5 - 3 + 2 * 6 / - 2 3 + 7 8 11");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "5 * ( 3 - 2 + 6 * ( 2 - 3 ) / ( 7 + 8 ) ) - 11");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "5 3 2 6 2 3 - 7 8 + / * + - * 11 -");
+
+  SyntaxTree infix {"5 * ( 3 - 2 + 6 * ( 2 - 3 ) / ( 7 + 8 ) ) - 11", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "- * 5 - 3 + 2 * 6 / - 2 3 + 7 8 11");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "5 * ( 3 - 2 + 6 * ( 2 - 3 ) / ( 7 + 8 ) ) - 11");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "5 3 2 6 2 3 - 7 8 + / * + - * 11 -");
+
+  SyntaxTree postfix {"5 3 2 6 2 3 - 7 8 + / * + - * 11 -", ArithmeticNotation::POSTFIX};
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::PREFIX), "- * 5 - 3 + 2 * 6 / - 2 3 + 7 8 11");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::INFIX), "5 * ( 3 - 2 + 6 * ( 2 - 3 ) / ( 7 + 8 ) ) - 11");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "5 3 2 6 2 3 - 7 8 + / * + - * 11 -");
+}
