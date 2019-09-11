@@ -263,6 +263,23 @@ std::string SyntaxTree::Node::stringify_to_postfix() const {
   return result_expr;
 }
 
+
+SyntaxTree::Node::Node(Node&& nd) {
+  *this = std::move(nd);
+}
+
+SyntaxTree::Node& SyntaxTree::Node::operator=(Node&& nd) {
+  left_ = nd.left_;
+  right_ = nd.right_;
+  data_ = nd.data_;
+
+  nd.left_ = nullptr;
+  nd.right_ = nullptr;
+  nd.data_ = "";
+
+  return *this;
+}
+
 SyntaxTree::Node::~Node() {
   if (left_) delete left_;
   if (right_) delete right_;

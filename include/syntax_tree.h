@@ -31,6 +31,10 @@ class SyntaxTree {
  private:
   struct Node {
     Node() = default;
+    Node(const Node&) = delete;
+    Node& operator=(const Node&) = delete;
+    Node(Node&&);
+    Node& operator=(Node&&);
     ~Node();
 
     void nodify(const std::string& expr, ArithmeticNotation notation);
