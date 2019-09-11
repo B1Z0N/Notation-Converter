@@ -9,7 +9,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${GOOGLE_TEST_HOME_DIR}/googlemock/include ${GOOGLE_TEST_HOME_DIR}/googletest/include)
 link_directories(${GOOGLE_TEST_HOME_DIR}/build/lib)
 
-set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
+set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -g")
 
 set(SOURCES 
   src/notation_converter.cpp 

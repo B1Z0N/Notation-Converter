@@ -177,8 +177,79 @@ TEST(SyntaxTree, ConversionOfSingleOperatorExpression) {
   ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "1 2 +");
 }
 
-// TEST(SyntaxTree, ConversionOfT) {
+TEST(SyntaxTree, ConversionOfTwoOperatorsWithEqualPrecedence) {
+  SyntaxTree prefix {" +  1  + 2 3 ", ArithmeticNotation::PREFIX};
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "+ 1 + 2 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "1 + 2 + 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 + +");
 
-// }
+  SyntaxTree infix {" 1  +   2  + 3 ", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "+ + 1 2 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "1 + 2 + 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "1 2 + 3 +");
 
+  SyntaxTree postfix {"  1  2     3  +   +    ", ArithmeticNotation::POSTFIX};
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::PREFIX), "+ 1 + 2 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::INFIX), "1 + 2 + 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 + +");
+}
+
+TEST(SyntaxTree, ConversionOfTwoOperatorsWithDifferentPrecedence) {
+  SyntaxTree prefix {" +  1  * 2 3 ", ArithmeticNotation::PREFIX};
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "+ 1 * 2 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "1 + 2 * 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 * +");
+
+  SyntaxTree infix {" 1   +   2 *   3               ", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "+ 1 * 2 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "1 + 2 * 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 * +");
+
+  SyntaxTree postfix {"   1   2 3   *          + ", ArithmeticNotation::POSTFIX};
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::PREFIX), "+ 1 * 2 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::INFIX), "1 + 2 * 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 * +");
+}
+
+TEST(SyntaxTree, ConversionOfTwoOperatorsWithEqualPrecedenceInParentheses) {
+  SyntaxTree prefix {" +  1  + 2 3 ", ArithmeticNotation::PREFIX};
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "+ 1 + 2 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "1 + 2 + 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 + +");
+
+  SyntaxTree infix {" 1  +  ( 2  + 3   ) ", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "+ 1 + 2 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "1 + 2 + 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 + +");
+
+  SyntaxTree postfix {"  1  2     3  +   +    ", ArithmeticNotation::POSTFIX};
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::PREFIX), "+ 1 + 2 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::INFIX), "1 + 2 + 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 + +");
+}
+
+TEST(SyntaxTree, ConversionOfTwoOperatorsWithDifferentPrecedenceInParentheses) {
+  SyntaxTree prefix {" /   1   - 2  3     ", ArithmeticNotation::PREFIX};
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::PREFIX), "/ 1 - 2 3");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::INFIX), "1 / ( 2 - 3 )");
+  ASSERT_EQ(prefix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 - /");
+
+  SyntaxTree infix {" 1   /   ( 2  -   3   )    ", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "/ 1 - 2 3");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "1 / ( 2 - 3 )");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 - /");
+
+  SyntaxTree postfix {" 1   2   3 -  /     ", ArithmeticNotation::POSTFIX};
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::PREFIX), "/ 1 - 2 3");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::INFIX), "1 / ( 2 - 3 )");
+  ASSERT_EQ(postfix.to_notation(ArithmeticNotation::POSTFIX), "1 2 3 - /");
+}
+
+TEST(SyntaxTree, ConversionWithAdditionalParentheses) {
+  SyntaxTree infix {" ( ( ( 2   ) -  (   3 )  )  *  (  5 )  ) ", ArithmeticNotation::INFIX};
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::PREFIX), "* - 2 3 5");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::INFIX), "( 2 - 3 ) * 5");
+  ASSERT_EQ(infix.to_notation(ArithmeticNotation::POSTFIX), "2 3 - 5 *");
+
+}
 // TEST(SyntaxTree, BuildingTreeFromDifferentNotation) { SyntaxTree st{"1"}; }

@@ -143,9 +143,8 @@ void SyntaxTree::Node::nodify_from_infix(
           std::string token = splited[i];
 
           if (is_operator(token)) {
-            while (
-                (is_greater_precedence(st.top(), token) || token == st.top()) &&
-                !st.empty()) {
+            while (!st.empty() && (is_greater_precedence(st.top(), token) ||
+                                   token == st.top())) {
               postfix.push_back(st.top());
               st.pop();
             }
@@ -224,16 +223,22 @@ std::string SyntaxTree::Node::stringify_to_infix() const {
     if (nd->left_ != nullptr &&
         is_greater_precedence(nd->data_, nd->left_->data_)) {
       result_expr += "( ";
+      stringify(stringify, nd->left_, result_expr);
+      result_expr += ") ";
+    } else {
+      stringify(stringify, nd->left_, result_expr);
     }
-    stringify(stringify, nd->left_, result_expr);
 
     result_expr += nd->data_ + " ";
 
     if (nd->right_ != nullptr &&
         is_greater_precedence(nd->data_, nd->right_->data_)) {
+      result_expr += "( ";
+      stringify(stringify, nd->right_, result_expr);
       result_expr += ") ";
+    } else {
+      stringify(stringify, nd->right_, result_expr);
     }
-    stringify(stringify, nd->right_, result_expr);
   }};
 
   std::string result_expr;
