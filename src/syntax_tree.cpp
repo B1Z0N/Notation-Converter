@@ -140,7 +140,7 @@ void SyntaxTree::Node::nodify_from_infix(
         std::vector<std::string> postfix;
 
         for (std::size_t i = 0; i < splited.size(); ++i) {
-          std::string token = splited[i];
+          const std::string& token = splited[i];
 
           if (is_operator(token)) {
             while (!st.empty() && (is_greater_precedence(st.top(), token) ||
