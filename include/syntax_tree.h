@@ -33,7 +33,7 @@ class SyntaxTree {
     Node() = default;
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;
-    
+
     Node(Node&&);
     Node& operator=(Node&&);
     ~Node();
@@ -54,7 +54,7 @@ class SyntaxTree {
     std::string stringify_to_infix() const;
     std::string stringify_to_postfix() const;
 
-    void clear();
+    static Node* exception_aware_alloc(); 
   };
   Node tree_;
 };

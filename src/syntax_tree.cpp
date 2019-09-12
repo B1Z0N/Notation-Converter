@@ -2,6 +2,7 @@
 #include "arithmetic_notation.h"
 
 #include <algorithm>
+#include <exception>
 #include <iterator>
 #include <sstream>
 #include <stack>
@@ -74,19 +75,24 @@ std::string SyntaxTree::to_notation(ArithmeticNotation notation) const {
 void SyntaxTree::Node::nodify(const std::string& expr,
                               ArithmeticNotation notation) {
   std::vector<std::string> vec{split(expr)};
-  switch (notation) {
-    case ArithmeticNotation::PREFIX: {
-      nodify_from_prefix(vec);
-      break;
+  try {
+    switch (notation) {
+      case ArithmeticNotation::PREFIX: {
+        nodify_from_prefix(vec);
+        break;
+      }
+      case ArithmeticNotation::INFIX: {
+        nodify_from_infix(vec);
+        break;
+      }
+      case ArithmeticNotation::POSTFIX: {
+        nodify_from_postfix(vec);
+        break;
+      }
     }
-    case ArithmeticNotation::INFIX: {
-      nodify_from_infix(vec);
-      break;
-    }
-    case ArithmeticNotation::POSTFIX: {
-      nodify_from_postfix(vec);
-      break;
-    }
+  } catch (std::bad_alloc&) {
+    *this = Node {};
+    throw std::bad_alloc {"Can't allocate, thus object is default initialized now"};
   }
 }
 
@@ -122,8 +128,8 @@ void SyntaxTree::Node::nodify_from_prefix(
     nd->data_ = splited[i];
 
     if (is_operator(nd->data_)) {
-      nd->left_ = new Node{};
-      nd->right_ = new Node{};
+      if (!(nd->left_ = exception_aware_alloc())) throw std::bad_alloc{};
+      if (!(nd->right_ = exception_aware_alloc())) throw std::bad_alloc{};
 
       st.push(nd->right_);
       st.push(nd->left_);
@@ -187,8 +193,8 @@ void SyntaxTree::Node::nodify_from_postfix(
     nd->data_ = splited[i];
 
     if (is_operator(nd->data_)) {
-      nd->left_ = new Node{};
-      nd->right_ = new Node{};
+      if (!(nd->left_ = exception_aware_alloc())) throw std::bad_alloc{};
+      if (!(nd->right_ = exception_aware_alloc())) throw std::bad_alloc{};
 
       st.push(nd->left_);
       st.push(nd->right_);
@@ -263,9 +269,15 @@ std::string SyntaxTree::Node::stringify_to_postfix() const {
   return result_expr;
 }
 
-SyntaxTree::Node::Node(Node&& nd) {
-  *this = std::move(nd);
+SyntaxTree::Node* SyntaxTree::Node::exception_aware_alloc() {
+  try {
+    return new Node{};
+  } catch (std::bad_alloc&) {
+    return nullptr;
+  }
 }
+
+SyntaxTree::Node::Node(Node&& nd) { *this = std::move(nd); }
 
 SyntaxTree::Node& SyntaxTree::Node::operator=(Node&& nd) {
   this->~Node();
