@@ -35,6 +35,8 @@ Use it like this:
 
 #include "notation_converter.h"
 
+using namespace notation_conv;
+
 std::string expr {"1 + 2 * ( 3 - 2 )"}; // necessary to have a space between two items
 NotationConverter nc {expr, ArithemticNotation::INFIX};
 
