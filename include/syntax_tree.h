@@ -33,6 +33,7 @@ class SyntaxTree {
     Node() = default;
     Node(const Node&) = delete;
     Node& operator=(const Node&) = delete;
+    
     Node(Node&&);
     Node& operator=(Node&&);
     ~Node();

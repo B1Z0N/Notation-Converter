@@ -263,12 +263,13 @@ std::string SyntaxTree::Node::stringify_to_postfix() const {
   return result_expr;
 }
 
-
 SyntaxTree::Node::Node(Node&& nd) {
   *this = std::move(nd);
 }
 
 SyntaxTree::Node& SyntaxTree::Node::operator=(Node&& nd) {
+  this->~Node();
+
   left_ = nd.left_;
   right_ = nd.right_;
   data_ = nd.data_;
