@@ -4,11 +4,14 @@ project(NotationConverter)
 
 set(GOOGLE_TEST_HOME_DIR "googletest")
 
+# include project dir
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+# include and link gtest dirs
 include_directories(${GOOGLE_TEST_HOME_DIR}/googlemock/include ${GOOGLE_TEST_HOME_DIR}/googletest/include)
 link_directories(${GOOGLE_TEST_HOME_DIR}/build/lib)
 
+# some additional flags to compile with
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -g")
 
 set(SOURCES 
@@ -35,3 +38,9 @@ if(CMAKE_THREAD_LIBS_INIT)
   target_link_libraries(run_tests "${CMAKE_THREAD_LIBS_INIT}")
 endif()
 
+# generate static library from the sources
+add_library(notaconv STATIC ${SOURCES})
+
+# set the location for library installation -- current folder in this case
+# not really necessary in this example. Use "sudo make install" to apply
+install(TARGETS notaconv DESTINATION .)
