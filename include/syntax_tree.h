@@ -7,7 +7,7 @@
 
 #include "arithmetic_notation.h"
 
-namespace notation_conv {
+namespace notaconv {
 namespace detail {
 
 std::vector<std::string> split(const std::string& s);
@@ -66,6 +66,6 @@ class SyntaxTree {
 };
 
 };  // namespace detail
-};  // namespace notation_conv
+};  // namespace notaconv
 
 #endif  // SYNTAX_TREE_H

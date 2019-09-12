@@ -4,7 +4,7 @@
 
 #include <string>
 
-namespace notation_conv {
+namespace notaconv {
 
 NotationConverter::NotationConverter(const std::string& expr,
                                      ArithmeticNotation notation)
@@ -14,4 +14,4 @@ std::string NotationConverter::convert(ArithmeticNotation notation) const {
   return tree_.to_notation(notation);
 };
 
-};  // namespace notation_conv
+};  // namespace notaconv

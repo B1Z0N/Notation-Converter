@@ -1,7 +1,7 @@
 #ifndef ARITHMETIC_NOTATION_H
 #define ARITHMETIC_NOTATION_H
 
-namespace notation_conv {
+namespace notaconv {
 enum class ArithmeticNotation { PREFIX, INFIX, POSTFIX };
 };
 

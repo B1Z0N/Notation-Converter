@@ -5,7 +5,7 @@
 #include "arithmetic_notation.h"
 #include "syntax_tree.h"
 
-namespace notation_conv {
+namespace notaconv {
 
 class NotationConverter {
  public:
@@ -23,6 +23,6 @@ class NotationConverter {
   detail::SyntaxTree tree_;
 };
 
-};  // namespace notation_conv
+};  // namespace notaconv
 
 #endif  // NOTATION_CONVERTER_H

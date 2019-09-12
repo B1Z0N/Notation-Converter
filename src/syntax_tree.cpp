@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace notation_conv {
+namespace notaconv {
 namespace detail {
 
 std::vector<std::string> split(const std::string& str) {
@@ -298,4 +298,4 @@ SyntaxTree::Node::~Node() {
   if (right_) delete right_;
 }
 };  // namespace detail
-};  // namespace notation_conv
+};  // namespace notaconv

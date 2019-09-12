@@ -5,7 +5,7 @@
 
 #include <string>
 
-using namespace notation_conv;
+using namespace notaconv;
 
 TEST(NotationConverter, CopyMoveConstructionAndAssignment) {
   NotationConverter nt1{"3", ArithmeticNotation::POSTFIX};

@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-using namespace notation_conv;
+using namespace notaconv;
 using namespace detail;
 
 ////////////////////////////////////////////////////////////////////////////////
