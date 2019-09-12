@@ -92,7 +92,7 @@ void SyntaxTree::Node::nodify(const std::string& expr,
     }
   } catch (std::bad_alloc&) {
     *this = Node {};
-    throw std::bad_alloc {"Can't allocate, thus object is default initialized now"};
+    throw ConstructionError {};
   }
 }
 

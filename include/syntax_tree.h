@@ -18,6 +18,12 @@ bool is_greater_precedence(const std::string& op1, const std::string& op2);
 
 class SyntaxTree {
  public:
+  struct ConstructionError : public std::bad_alloc {
+    const char* what() {
+      return "Can't allocate, thus object is default initialized now";
+    }
+  };
+
   SyntaxTree() = default;
   SyntaxTree(SyntaxTree&&) = default;
   SyntaxTree& operator=(SyntaxTree&&) = default;
